@@ -1,0 +1,18 @@
+# Ignore these files & directories
+.DS_Store
+node_modules
+*.sock
+*env*
+*xlsx
+newrelic_agent.log
+bower_components/
+*.csr
+*.pass.key
+*.crt
+*.key
+*.txt
+
+Ignore the stuff in the public directory except for ...
+# public/
+
+# Unless they match this file path

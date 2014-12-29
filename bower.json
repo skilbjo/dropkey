@@ -1,0 +1,21 @@
+{
+  "name": "dropkey",
+  "version": "0.0.1",
+  "homepage": "https://github.com/skilbjo/dropkey",
+  "authors": [
+    "skilbjo <https://twitter.com/skilbjo>"
+  ],
+  "main": "server.js",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.2.0"
+  }
+}
