@@ -1,0 +1,9 @@
+/*Media Queries*/
+@media (max-width: 979px) {
+  body {
+
+  }
+  h1 {
+    font-size: 31px;
+  }
+}

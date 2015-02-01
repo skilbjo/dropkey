@@ -30,7 +30,7 @@ gulp.task('default',
 );
 
 gulp.task('build',
-	[]// ['lint','css','js','jade']
+ ['lint','css','js','jade']
 );
 
 gulp.task('lint', function() {
@@ -42,7 +42,7 @@ gulp.task('lint', function() {
 gulp.task('js', function() {
 	return gulp.src(src.js.pub)
 		.pipe(uglify())
-		.pipe(concat('csv.js'))
+		.pipe(concat('dropkey.js'))
 		.pipe(rename({suffix: '.min'}))
 		.pipe(gulp.dest('public/dist'));
 });
