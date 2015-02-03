@@ -45,7 +45,7 @@ body {
 #sitename, h1, h2, h3, h4, h5 { 
 	font-family: 'Montserrat', Helvetica, sans-serif; 
 	line-height: 1 !important; 
-	text-transform: uppercase; 
+	text-transform: lowercase; 
 }
 
 #sitename { 

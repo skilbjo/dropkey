@@ -14,9 +14,13 @@ exports.new = function(req, res) {
 exports.request_token = function(req, res) {
   dropbox.requesttoken( function(status, request_token) {
     global_request_token = request_token;
-    res.send(request_token);
+    res.render('dropbox/request_token', { 
+      request_token: request_token.oauth_token
+    });
   });
 };
+
+// &oauth_callback=http://www.google.com
 
 
 exports.access_token = function(req, res) {
@@ -30,6 +34,9 @@ exports.access_token = function(req, res) {
       client = dropbox.client(access_token);
       client.account(function( status, reply) {
         console.log( reply );
+        res.render('dropbox/access_token', {
+          name: reply.display_name
+        });
       });
     });
   } catch (e) {
