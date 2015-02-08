@@ -48,6 +48,7 @@ var controller = {
 require('./app/routes.js')(app
   , model
   , controller
+  , env
   );
 
 // launch ===================
