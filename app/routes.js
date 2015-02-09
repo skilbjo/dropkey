@@ -17,6 +17,9 @@ module.exports = function(app
 	app.route('/access_token')
   	.get( function(req, res) { controller.dropbox.access_token(req, res); });
 
+  app.route('/tree')
+    .get( function(req, res) { controller.dropbox.tree(req, res); } );
+
   app.route('/create_file')
     .get( function(req, res) { controller.dropbox.create_file(req, res); } );
 

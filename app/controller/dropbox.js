@@ -54,6 +54,7 @@ exports.access_token = function(req, res) {
 
           res.render('dropbox/access_token', {
             name: reply.display_name,
+            email: reply.email,
             file_dir: file_dir
           });
 
@@ -65,8 +66,20 @@ exports.access_token = function(req, res) {
   }
 };
 
-exports.create_file = function(req, res) {
+exports.tree = function(req, res) {
 
+};
+
+exports.create_file = function(req, res) {
+  client = dropbox.client(global_access_token);
+  client.put('hello.txt', 'hi here is some text', function(status, reply) {
+    console.log(reply);
+
+    res.render('dropbox/create_file', {
+      path: reply.path,
+      bytes: reply.bytes
+    });
+  });
 };
 
 
