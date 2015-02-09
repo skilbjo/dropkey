@@ -3,6 +3,7 @@ var
   , dropbox       = dbox.app({'app_key': process.env.DROPBOX_KEY, 'app_secret': process.env.DROPBOX_SECRET})
   , qs            = require('querystring')
   , global_request_token
+  , global_access_token
   , callback_url
   , client;
 
@@ -43,6 +44,9 @@ exports.access_token = function(req, res) {
 
   try {
     dropbox.accesstoken(global_request_token, function( status, access_token) {
+      global_access_token = access_token;
+
+
       client = dropbox.client(access_token);
       client.account(function( status, reply) {
         client.metadata('public', function(status_meta, reply_meta) {
@@ -59,6 +63,10 @@ exports.access_token = function(req, res) {
   } catch (e) {
     console.log('Error, ', e);
   }
+};
+
+exports.create_file = function(req, res) {
+
 };
 
 

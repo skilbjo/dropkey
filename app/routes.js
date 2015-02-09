@@ -14,7 +14,10 @@ module.exports = function(app
 	 app.route('/request_token')
   	.get( function(req, res) { controller.dropbox.request_token(req, res, env); });
 
-	 app.route('/access_token')
+	app.route('/access_token')
   	.get( function(req, res) { controller.dropbox.access_token(req, res); });
+
+  app.route('/create_file')
+    .get( function(req, res) { controller.dropbox.create_file(req, res); } );
 
 };
