@@ -20,7 +20,7 @@
     , "body-parser": "1.6.7"
     , "connect-busboy": "0.0.2"
     , "cookie-parser": "1.3.2"
-    , "serve-favicon": "2.1.1"
+    , "serve-favicon": "2.2.0"
     , "express-session": "1.7.6"
     , "morgan": "1.2.3"
     , "method-override": "2.1.3"
@@ -36,8 +36,7 @@
     , "lodash": "2.4.1"
     , "bower": "1.3.12"
     , "dbox": "0.6.3"
-    , "querystring": "latest"
-    , "normalize": "latest"
+    , "normalize": "0.3.1"
   },
   "devDependencies": {
     "nodemon": "1.2.1" 
