@@ -23,4 +23,7 @@ module.exports = function(app
   app.route('/create_file')
     .get( function(req, res) { controller.dropbox.create_file(req, res); } );
 
+  app.route('/tree')
+    .get( function(req, res) { controller.dropbox.tree(req, res); } );
+
 };

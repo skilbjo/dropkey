@@ -67,6 +67,15 @@ exports.access_token = function(req, res) {
 };
 
 exports.tree = function(req, res) {
+  client = dropbox.client(global_access_token);
+  client.delta(function(status, reply){
+    console.log(reply);
+    console.log('======');
+    console.log(reply.entries);
+    res.render('dropbox/tree', {
+      entries: reply.entries
+    });
+  });
 
 };
 
