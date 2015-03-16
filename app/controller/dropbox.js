@@ -1,6 +1,7 @@
 var
   dbox            = require('dbox')
   , dropbox       = dbox.app({'app_key': process.env.DROPBOX_KEY, 'app_secret': process.env.DROPBOX_SECRET})
+  , js_token      = process.env.DROPBOX_TOKEN
   , qs            = require('querystring')
   , global_request_token
   , global_access_token
@@ -67,7 +68,7 @@ exports.access_token = function(req, res) {
 };
 
 exports.tree = function(req, res) {
-  client = dropbox.client(global_access_token);
+  client = dropbox.client(js_token);
   client.delta(function(status, reply){
     console.log(reply);
     console.log('======');
