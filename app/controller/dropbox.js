@@ -1,10 +1,15 @@
 var
   dbox            = require('dbox')
-  , dropbox       = dbox.app({'app_key': process.env.DROPBOX_KEY, 'app_secret': process.env.DROPBOX_SECRET})
+  , dropbox       = dbox.app({'app_key': process.env.DROPBOX_KEY, 'app_secret': process.env.DROPBOX_SECRET, 'root': 'dropbox'})
   , js_token      = process.env.DROPBOX_TOKEN
   , qs            = require('querystring')
   , global_request_token
   , global_access_token
+  , global_access_token = {
+    oauth_token_secret: process.env.DROPBOX_SECRET2
+    , oauth_token: process.env.DROPBOX_ACCESS2
+    , uid: process.env.DROPBOX_UID
+  }
   , callback_url
   , client;
 
@@ -12,6 +17,21 @@ var
 exports.new = function(req, res) {
   res.render('dropbox/new');
 };
+
+exports.tree = function(req, res) {
+  client = dropbox.client(global_access_token);
+  console.log(global_access_token);
+
+  client.delta(function(status, reply){
+    console.log(reply);
+    console.log('======');
+    console.log(reply.entries);
+    res.render('dropbox/tree', {
+      entries: reply.entries
+    });
+  });
+};
+
 
 // GET, /token, token
 exports.request_token = function(req, res, env) {
@@ -33,8 +53,6 @@ exports.request_token = function(req, res, env) {
     });
   });
 };
-
-
 
 exports.access_token = function(req, res) {
   var oauth_token = req.query.oauth_token
@@ -65,19 +83,6 @@ exports.access_token = function(req, res) {
   } catch (e) {
     console.log('Error, ', e);
   }
-};
-
-exports.tree = function(req, res) {
-  client = dropbox.client(js_token);
-  client.delta(function(status, reply){
-    console.log(reply);
-    console.log('======');
-    console.log(reply.entries);
-    res.render('dropbox/tree', {
-      entries: reply.entries
-    });
-  });
-
 };
 
 exports.create_file = function(req, res) {
