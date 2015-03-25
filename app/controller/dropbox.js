@@ -11,7 +11,19 @@ var
     , uid: process.env.DROPBOX_UID
   }
   , callback_url
-  , client;
+  , client
+  , file_tree     = {} ;
+
+var fileTreeToObject = function(arr) {
+  var tree = {};
+
+  arr.map(function(i) {
+    list.Level_1 = i[1].path;
+    arr.shift();
+
+  });
+};
+
 
 // GET, /costs/new, new
 exports.new = function(req, res) {
@@ -20,12 +32,11 @@ exports.new = function(req, res) {
 
 exports.tree = function(req, res) {
   client = dropbox.client(global_access_token);
-  console.log(global_access_token);
 
   client.delta(function(status, reply){
-    console.log(reply);
-    console.log('======');
     console.log(reply.entries);
+
+
     res.render('dropbox/tree', {
       entries: reply.entries
     });
