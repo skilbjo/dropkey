@@ -8,6 +8,9 @@ module.exports = function(app
   app.route('/')
   	.get( controller.static_pages.index );
 
+  app.route('/signup')
+    .get( controller.static_pages.signup );
+
   app.route('/dropbox/new')
   	.get( controller.dropbox.new);
 

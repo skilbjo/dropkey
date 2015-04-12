@@ -1,3 +1,7 @@
+// https://www.npmjs.com/package/usb-detection
+// https://github.com/voodootikigod/node-serialport
+// https://github.com/sidorares/node-dbus
+
 var dbus = require('dbus-native');
 var bus = dbus.systemBus();
 udservice = bus.getService('org.freedesktop.UDisks');
