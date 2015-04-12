@@ -35,13 +35,14 @@ app.set('models', require('./app/model'));
 // MVC Definitions =============
 // models =============
 var model = { 
-  // cost        : app.get('models').Cost
+  user        : app.get('models').User
 };
 
 // controllers ========
 var controller = {
   static_pages    : require('./app/controller/static_pages.js') 
   , dropbox       : require('./app/controller/dropbox.js')
+  , users         : require('./app/controller/users.js')
 };
 
 // routes =============
@@ -52,7 +53,7 @@ require('./app/routes.js')(app
   );
 
 // launch ===================
-db.sequelize.sync({ force: false }).complete(function(err) {
+db.sequelize.sync({ force: true }).complete(function(err) {
   if (err) { throw err[0] ; } else { 
     http.createServer(app).listen(app.get('port'), function(){ 
       console.log('The magic happens on port ' + app.get('port'));
