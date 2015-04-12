@@ -13,6 +13,7 @@ var
   , busboy          = require('connect-busboy')
   , marked          = require('marked').setOptions({ breaks: true })
   , db              = require('./app/model/index.js')
+  , passport        = require('passport')
   , env             = (process.env.NODE_ENV || 'development');
 
 // configuration ==============
@@ -35,22 +36,19 @@ app.set('models', require('./app/model'));
 // MVC Definitions =============
 // models =============
 var model = { 
-  user        : app.get('models').User
+  user          : app.get('models').User
 };
 
 // controllers ========
 var controller = {
-  static_pages    : require('./app/controller/static_pages.js') 
-  , dropbox       : require('./app/controller/dropbox.js')
-  , users         : require('./app/controller/users.js')
+  static_pages  : require('./app/controller/static_pages.js'),
+  dropbox       : require('./app/controller/dropbox.js'),
+  users         : require('./app/controller/users.js')
 };
 
 // routes =============
-require('./app/routes.js')(app
-  , model
-  , controller
-  , env
-  );
+require('./app/routes.js')(app, passport, model, controller, env);
+require('./lib/config/passport')(model, passport);
 
 // launch ===================
 db.sequelize.sync({ force: true }).complete(function(err) {

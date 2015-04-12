@@ -6,6 +6,14 @@ module.exports = function(sequelize, DataTypes) {
       notNull: true,
       autoIncrement: true
     },
+    FacebookId: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    FacebookToken: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     Name: {
       type: DataTypes.STRING,
       allowNull: false
