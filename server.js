@@ -1,38 +1,24 @@
 var 
   http            = require('http')
-  , path        = require('path')
-  , express         = require('express')
-  , app             = express()
-
-  , marked          = require('marked').setOptions({ breaks: true })
-  , db              = require('./app/model/index.js')
-  , passport        = require('passport')
-  , env             = (process.env.NODE_ENV || 'development');
+  , path          = require('path')
+  , express       = require('express')
+  , app           = express()
+  , marked        = require('marked').setOptions({ breaks: true })
+  , db            = require('./app/model/index.js')
+  , passport      = require('passport')
+  , env           = (process.env.NODE_ENV || 'development');
 
 // configuration ==============
   // middleware
 require('./lib/config/middleware.js')(app, passport);
-
-
 app.set('port', process.env.PORT || 8080);
 
-app.use('/public', express.static('public'));
-app.use('/bower', express.static('bower_components'));
-
-// view template engine
-app.set('view engine', 'jade');
-app.set('views', path.join(__dirname, '/app/view') );
-
-console.log(app.get('views'));
-
-
-// models
-app.set('models', require('./app/model'));
-
-
+app.use('/public',  express.static('public'));
+app.use('/bower',   express.static('bower_components'));
 
 // MVC Definitions =============
 // models =============
+app.set('models', require('./app/model'));
 var model = { 
   user          : app.get('models').User
 };
@@ -43,6 +29,10 @@ var controller = {
   dropbox       : require('./app/controller/dropbox.js'),
   users         : require('./app/controller/users.js')
 };
+
+// views ==============
+app.set('view engine', 'jade');
+app.set('views', path.join(__dirname, '/app/view') );
 
 // routes =============
 require('./app/routes.js')(app, passport, model, controller, env);
