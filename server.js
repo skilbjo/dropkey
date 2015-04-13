@@ -7,7 +7,6 @@ var
   , favicon         = require('serve-favicon')
   , cookieParser    = require('cookie-parser')
   , methodOverride  = require('method-override')
-  , session         = require('express-session')
   , errorHandler    = require('errorhandler')
   , bodyParser      = require('body-parser')
   , busboy          = require('connect-busboy')
@@ -18,8 +17,21 @@ var
 
 // configuration ==============
   // boilerplate
-app.use(cookieParser()); app.use(methodOverride()); app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json()); app.use(errorHandler()); app.use(morgan('dev'));  app.use(flash()); app.use(busboy());
+app.use(cookieParser()); 
+app.use(methodOverride()); 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json()); 
+app.use(flash()); 
+app.use(require('express-session')({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(errorHandler()); 
+app.use(morgan('dev'));  
+app.use(busboy());
 
 app.set('port', process.env.PORT || 8080);
 app.use(favicon(__dirname + '/public/src/assets/favicon/favicon.ico'));

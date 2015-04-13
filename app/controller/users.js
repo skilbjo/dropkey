@@ -19,7 +19,7 @@ exports.create = function(req, res, model) {
 		})
 		.complete(function(err, user) {
 			if(err || !user) {
-				res.json(err); return;
+				res.send(err); return;
 			} else {
 				console.log(user);
 				res.send('hay guy nice job');
@@ -36,15 +36,15 @@ exports.show = function(req, res, model) {
 };
 
 exports.edit = function(req, res, model) {
-
+	res.send('stub');
 };
 
 exports.update = function(req, res, model) {
-
+	res.send('stub');
 };
 
 exports.delete = function(req, res, model) {
-
+	res.send('stub');
 };
 
 exports.list = function(req, res, model) {
@@ -53,7 +53,7 @@ exports.list = function(req, res, model) {
 	.complete(function(err, users) {
 		console.log(users);
 		if(err || !users) {
-			res.json(err); return;
+			res.send(err); return;
 		} else {
 			res.render('users/list', {
 				users: users
