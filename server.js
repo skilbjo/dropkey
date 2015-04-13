@@ -1,49 +1,35 @@
 var 
   http            = require('http')
-  , flash           = require('connect-flash')
+  , path        = require('path')
   , express         = require('express')
   , app             = express()
-  , morgan          = require('morgan')
-  , favicon         = require('serve-favicon')
-  , cookieParser    = require('cookie-parser')
-  , methodOverride  = require('method-override')
-  , errorHandler    = require('errorhandler')
-  , bodyParser      = require('body-parser')
-  , busboy          = require('connect-busboy')
+
   , marked          = require('marked').setOptions({ breaks: true })
   , db              = require('./app/model/index.js')
   , passport        = require('passport')
   , env             = (process.env.NODE_ENV || 'development');
 
 // configuration ==============
-  // boilerplate
-app.use(cookieParser()); 
-app.use(methodOverride()); 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json()); 
-app.use(flash()); 
-app.use(require('express-session')({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: false
-}));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(errorHandler()); 
-app.use(morgan('dev'));  
-app.use(busboy());
+  // middleware
+require('./lib/config/middleware.js')(app, passport);
+
 
 app.set('port', process.env.PORT || 8080);
-app.use(favicon(__dirname + '/public/src/assets/favicon/favicon.ico'));
+
 app.use('/public', express.static('public'));
 app.use('/bower', express.static('bower_components'));
 
 // view template engine
 app.set('view engine', 'jade');
-app.set('views', __dirname + '/app/view');
+app.set('views', path.join(__dirname, '/app/view') );
+
+console.log(app.get('views'));
+
 
 // models
 app.set('models', require('./app/model'));
+
+
 
 // MVC Definitions =============
 // models =============

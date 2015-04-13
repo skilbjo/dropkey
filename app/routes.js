@@ -2,7 +2,7 @@ module.exports = function(app,
   passport,
 	model,
 	controller,
-  env, flash
+  env
 	) {
 
 // Static Routes ==================
