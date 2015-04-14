@@ -9,12 +9,9 @@ var
   , env           = (process.env.NODE_ENV || 'development');
 
 // configuration ==============
-  // middleware
-require('./lib/config/middleware.js')(app, passport);
+// middleware
+require('./lib/config/middleware.js')(app, passport, express);
 app.set('port', process.env.PORT || 8080);
-
-app.use('/public',  express.static('public'));
-app.use('/bower',   express.static('bower_components'));
 
 // MVC Definitions =============
 // models =============

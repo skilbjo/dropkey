@@ -9,15 +9,11 @@ module.exports = function(app,
   app.route('/')
   	.get( controller.static_pages.index );
 
+
 // Users ==========================
   app.route('/users')
-    .get( controller.users.index );
+    .get(isLoggedIn, function(req, res) { controller.users.index(req, res, model); } );
 
-  app.route('/users/new')
-    .get(function(req, res) { controller.users.new(req, res, model); } );
-  
-  app.route('/users')  
-    .post(function(req, res) { controller.users.create(req, res, model); } );
 
   app.route('/users/:id([0-9]+)')
     .get(isLoggedIn, function(req, res) { controller.users.show(req, res, model); });
@@ -28,15 +24,24 @@ module.exports = function(app,
   app.route('/users/:id([0-9]+)')
     .post( function(req, res) { controller.users.edit(req, res, model); } );
 
+  app.route('/logout')
+    .get( controller.users.logout );
+
+  app.route('/profile')
+    .get( function(req, res) { res.redirect('/users/' + req.user.UserId ); } );
+
 // Passport =======================
   app.route('/connect/facebook')
-    .get(passport.authenticate('facebook'));
+    .get( passport.authenticate('facebook', { scope: "email"} ));
   app.route('/connect/facebook/callback')
-    .get(passport.authenticate('facebook', {
-      successRedirect: '/success',
-      failureRedirect: '/fail'
-      /*function(req, res) { res.redirect('/users/' + req.user._id);  } */
-    }));
+    .get(function(req, res) { passport.authenticate('facebook')(req, res, function() {
+        res.redirect('/users/' + req.user.UserId);
+      });
+    });
+
+  // get  /user/new Create new user handled by Passport.js  /* app.route('/users/new').get(function(req, res) { controller.users.new(req, res, model); } ); */
+  // post /user     Create new user handled by Passport.js  /* app.route('/users').post(function(req, res) { controller.users.create(req, res, model); } ); */
+
 
 // Dropbox ========================
   app.route('/dropbox/new')
