@@ -13,7 +13,6 @@ var
 require('./lib/config/middleware.js')(app, passport, express);
 app.set('port', process.env.PORT || 8080);
 
-// MVC Definitions =============
 // models =============
 app.set('models', require('./app/model'));
 var model = { 
@@ -36,7 +35,7 @@ require('./app/routes.js')(app, passport, model, controller, env);
 require('./lib/config/passport')(model, passport);
 
 // launch ===================
-db.sequelize.sync({ force: true }).complete(function(err) {
+db.sequelize.sync({ force: false }).complete(function(err) {
   if (err) { throw err[0] ; } else { 
     http.createServer(app).listen(app.get('port'), function(){ 
       console.log('The magic happens on port ' + app.get('port'));

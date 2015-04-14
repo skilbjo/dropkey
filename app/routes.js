@@ -14,21 +14,20 @@ module.exports = function(app,
   app.route('/users')
     .get(isLoggedIn, function(req, res) { controller.users.index(req, res, model); } );
 
-
   app.route('/users/:id([0-9]+)')
     .get(isLoggedIn, function(req, res) { controller.users.show(req, res, model); });
 
   app.route('/users/:id/edit')
-    .get( controller.users.edit );
+    .get(isLoggedIn, controller.users.edit );
 
   app.route('/users/:id([0-9]+)')
-    .post( function(req, res) { controller.users.edit(req, res, model); } );
+    .post(isLoggedIn, function(req, res) { controller.users.edit(req, res, model); } );
 
   app.route('/logout')
-    .get( controller.users.logout );
+    .get(isLoggedIn, controller.users.logout );
 
   app.route('/profile')
-    .get( function(req, res) { res.redirect('/users/' + req.user.UserId ); } );
+    .get(isLoggedIn, function(req, res) { res.redirect('/users/' + req.user.UserId ); } );
 
 // Passport =======================
   app.route('/connect/facebook')
