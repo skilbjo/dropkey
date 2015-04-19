@@ -42,6 +42,7 @@
     , "dbus-native": "0.2.0"
     , "passport": "0.2.1"
     , "passport-facebook": "2.0.0"
+    , "passport-dropbox": "0.1.2"
   },
   "devDependencies": {
     "nodemon": "1.2.1" 
