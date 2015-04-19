@@ -30,13 +30,25 @@ module.exports = function(app,
     .get(isLoggedIn, function(req, res) { res.redirect('/users/' + req.user.UserId ); } );
 
 // Passport =======================
-  app.route('/connect/facebook')
+// Dropbox
+  app.route('/auth/dropbox')
+    .get( passport.authenticate('dropbox') );
+  app.route('/auth/dropbox/callback')
+    .get(function(req, res) { passport.authenticate('dropbox')(req, res, function() {
+        res.redirect('/users/' + req.user.UserId);
+      });
+    });
+
+// Facebook
+  app.route('/auth/facebook')
     .get( passport.authenticate('facebook', { scope: "email"} ));
-  app.route('/connect/facebook/callback')
+  app.route('/auth/facebook/callback')
     .get(function(req, res) { passport.authenticate('facebook')(req, res, function() {
         res.redirect('/users/' + req.user.UserId);
       });
     });
+
+
 
   // get  /user/new Create new user handled by Passport.js  /* app.route('/users/new').get(function(req, res) { controller.users.new(req, res, model); } ); */
   // post /user     Create new user handled by Passport.js  /* app.route('/users').post(function(req, res) { controller.users.create(req, res, model); } ); */
