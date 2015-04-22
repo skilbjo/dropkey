@@ -32,12 +32,17 @@ module.exports = function(app,
 // Passport =======================
 // Dropbox
   app.route('/auth/dropbox')
-    .get( passport.authenticate('dropbox') );
+    .get( passport.authenticate('dropbox-oauth2') );
   app.route('/auth/dropbox/callback')
-    .get(function(req, res) { passport.authenticate('dropbox')(req, res, function() {
-        res.redirect('/users/' + req.user.UserId);
-      });
+  .get(function(req, res) { passport.authenticate('dropbox-oauth2')(req, res, function() {
+      res.redirect('/users/' + req.user[0].UserId);
     });
+  });
+  // });
+    // .get(function(req, res) { console.log(req.user); passport.authenticate('dropbox')(req, res, function() {
+    //     res.redirect('/users/' + req.user.UserId);
+    //   });
+    // });
 
 // Facebook
   app.route('/auth/facebook')

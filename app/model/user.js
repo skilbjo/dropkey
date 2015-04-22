@@ -6,11 +6,11 @@ module.exports = function(sequelize, DataTypes) {
       notNull: true,
       autoIncrement: true
     },
-    FacebookId: {
-      type: DataTypes.STRING,
+    DropboxId: {
+      type: DataTypes.INTEGER,
       allowNull: false
     },
-    FacebookToken: {
+    DropboxToken: {
       type: DataTypes.STRING,
       allowNull: false
     },
