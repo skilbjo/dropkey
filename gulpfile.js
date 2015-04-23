@@ -1,5 +1,6 @@
 var gulp 						= require('gulp')
 	, jshint 					= require('gulp-jshint')
+	, browserSync 		= require('browser-sync').create()
 	, stylish 			 	= require('jshint-stylish')
 	, uglify 					= require('gulp-uglify')
 	, minifyCSS 			= require('gulp-minify-css')
@@ -58,6 +59,12 @@ gulp.task('css', function() {
 gulp.task('jade', function() {
 	gulp.src(src.jade.all);
 });
+
+// gulp.task('browser-sync', function() {
+// 	browserSync.init({
+// 		server: { baseDir: './' }
+// 	});
+// });
 
 /* 
 make sure to enable LiveReload JS in the browser

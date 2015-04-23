@@ -1,3 +1,6 @@
+var fs		= require('fs');
+
+
 exports.index = function(req, res, model) {
 	model.user
 	.findAll()
@@ -7,12 +10,14 @@ exports.index = function(req, res, model) {
 };
 
 exports.show = function(req, res, model) {
+	var md5 	= require('crypto').createHash('md5');
 	model.user
 	.find(req.user.UserId)
 	.then(function(err, user) {
 		res.render('users/profile', {
-			name: 	req.user.Name,
-			email: 	req.user.Email
+			name 	: 	req.user.Name,
+			email : 	req.user.Email,
+			hash	: 	md5.update(req.user.Email, req.user.DropboxToke).digest('hex')
 		});
 	});
 };

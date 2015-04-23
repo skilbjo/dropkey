@@ -38,11 +38,6 @@ module.exports = function(app,
       res.redirect('/users/' + req.user[0].UserId);
     });
   });
-  // });
-    // .get(function(req, res) { console.log(req.user); passport.authenticate('dropbox')(req, res, function() {
-    //     res.redirect('/users/' + req.user.UserId);
-    //   });
-    // });
 
 // Facebook
   app.route('/auth/facebook')
