@@ -15,13 +15,13 @@ module.exports = function(app,
     .get(isLoggedIn, function(req, res) { controller.users.index(req, res, model); } );
 
   app.route('/users/:id([0-9]+)')
-    .get(isLoggedIn, function(req, res) { controller.users.show(req, res, model); });
+    .get(isLoggedIn, isSameUser, function(req, res) { controller.users.show(req, res, model); });
 
   app.route('/users/:id/edit')
     .get(isLoggedIn, controller.users.edit );
 
   app.route('/users/:id([0-9]+)')
-    .post(isLoggedIn, function(req, res) { controller.users.edit(req, res, model); } );
+    .post(isLoggedIn, isSameUser, function(req, res) { controller.users.edit(req, res, model); } );
 
   app.route('/logout')
     .get(isLoggedIn, controller.users.logout );
@@ -72,6 +72,15 @@ module.exports = function(app,
 
 };
 
+
+function isSameUser(req, res, next) {
+  if (parseInt(req.params.id) === req.user.UserId) {
+    return next();
+  } else {
+  res.redirect('/users/' + req.user.UserId);
+  }
+
+}
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated())
