@@ -3,4 +3,4 @@ var usb = require('usb'),
 
 console.log( JSON.stringify(connected)
 
-	);
+);

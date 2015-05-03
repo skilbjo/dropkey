@@ -9,7 +9,7 @@ exports.index = function(req, res, model) {
 	});
 };
 
-exports.show = function(req, res, model) {
+exports.show = function(req, res, model) {	
 	var md5 	= require('crypto').createHash('md5');
 	model.user
 	.find(req.user.UserId)
@@ -17,7 +17,8 @@ exports.show = function(req, res, model) {
 		res.render('users/profile', {
 			name 	: 	req.user.Name,
 			email : 	req.user.Email,
-			hash	: 	md5.update(req.user.Email, req.user.DropboxToke).digest('hex')
+			hash	: 	md5.update(req.user.Email, req.user.DropboxToke).digest('hex'),
+			userId: 	req.user.UserId
 		});
 	});
 };

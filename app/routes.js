@@ -15,7 +15,9 @@ module.exports = function(app,
     .get(isLoggedIn, function(req, res) { controller.users.index(req, res, model); } );
 
   app.route('/users/:id([0-9]+)')
-    .get(isLoggedIn, isSameUser, function(req, res) { controller.users.show(req, res, model); });
+    .get(isLoggedIn, function(req, res) { 
+      controller.users.show(req, res, model); 
+    });
 
   app.route('/users/:id/edit')
     .get(isLoggedIn, controller.users.edit );
@@ -35,15 +37,50 @@ module.exports = function(app,
     .get( passport.authenticate('dropbox-oauth2') );
   app.route('/auth/dropbox/callback')
   .get(function(req, res) { passport.authenticate('dropbox-oauth2')(req, res, function() {
-      res.redirect('/users/' + req.user[0].UserId);
+      // console.log(req.user.UserId);
+      console.log(req.user[0].dataValues.UserId);
+      console.log(req.user);
+      var uzid = req.user[0].dataValues.UserId;
+      // res.redirect('/');
+      // controller.users.show(req, res, model);
+      res.redirect('/users/' + req.user[0].dataValues.UserId)(req, uzid);
     });
   });
+
+
+  // app.get('/auth/dropbox/callback', function(req, res, next) {
+  //   console.log('up here');
+  //   passport.authenticate('dropbox-oauth2', function(err, user, info) {
+  //     console.log('trying to auth');
+  //     if (err) return next(err);
+  //     if (!user) return res.redirect('/');
+  //     req.logIn(user, function(err) {
+  //       if (err) return next(err);
+  //       return res.redirect('/users/' + user.UserId);
+  //     });
+  //   });
+  // });
+
+
+  // // Dropbox
+  // app.route('/auth/dropbox')
+  //   .get( passport.authenticate('dropbox-oauth2') );
+  // app.route('/auth/dropbox/callback')
+  // .get(function(req, res) { passport.authenticate('dropbox-oauth2')(req, res, function() {
+  //     console.log(req.user);
+  //     req.session.save(function() {
+  //       res.send(req.user);
+  //       // res.redirect('/users/' + req.user[0].dataValues.UserId);
+  //     });
+  //   });
+  // });
 
 // Facebook
   app.route('/auth/facebook')
     .get( passport.authenticate('facebook', { scope: "email"} ));
   app.route('/auth/facebook/callback')
     .get(function(req, res) { passport.authenticate('facebook')(req, res, function() {
+        // console.log(req.user);
         res.redirect('/users/' + req.user.UserId);
       });
     });
@@ -74,11 +111,14 @@ module.exports = function(app,
 
 
 function isSameUser(req, res, next) {
+  next();
+  /*
   if (parseInt(req.params.id) === req.user.UserId) {
     return next();
   } else {
   res.redirect('/users/' + req.user.UserId);
   }
+  */
 
 }
 
