@@ -60,5 +60,6 @@
   },
   "jshintConfig": {
     "laxcomma": true
+    , "indent": 1
   }
 }

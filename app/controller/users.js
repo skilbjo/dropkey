@@ -11,6 +11,7 @@ exports.index = function(req, res, model) {
 
 exports.show = function(req, res, model) {	
 	var md5 	= require('crypto').createHash('md5');
+	console.log('in controller', req.user.UserId);
 	model.user
 	.find(req.user.UserId)
 	.then(function(err, user) {

@@ -16,6 +16,7 @@ module.exports = function(app,
 
   app.route('/users/:id([0-9]+)')
     .get(isLoggedIn, function(req, res) { 
+      console.log('get profile', req.user.dataValues.UserId);
       controller.users.show(req, res, model); 
     });
 
@@ -37,13 +38,9 @@ module.exports = function(app,
     .get( passport.authenticate('dropbox-oauth2') );
   app.route('/auth/dropbox/callback')
   .get(function(req, res) { passport.authenticate('dropbox-oauth2')(req, res, function() {
-      // console.log(req.user.UserId);
-      console.log(req.user[0].dataValues.UserId);
-      console.log(req.user);
-      var uzid = req.user[0].dataValues.UserId;
-      // res.redirect('/');
+      console.log('routes', req.user[0].UserId);
+      res.redirect('/users/' + req.user[0].UserId);
       // controller.users.show(req, res, model);
-      res.redirect('/users/' + req.user[0].dataValues.UserId)(req, uzid);
     });
   });
 
