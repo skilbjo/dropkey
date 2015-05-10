@@ -13,7 +13,7 @@ exports.show = function(req, res, model) {
 	var md5 	= require('crypto').createHash('md5');
 	console.log('in controller', req.user.UserId);
 	model.user
-	.find(req.user.UserId)
+	.find(req.user.dataValues.UserId)
 	.then(function(err, user) {
 		res.render('users/profile', {
 			name 	: 	req.user.Name,
