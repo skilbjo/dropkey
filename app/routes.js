@@ -38,7 +38,6 @@ module.exports = function(app,
     .get( passport.authenticate('dropbox-oauth2') );
   app.route('/auth/dropbox/callback')
   .get(function(req, res) { passport.authenticate('dropbox-oauth2')(req, res, function() {
-      console.log('routes', req.user[0].UserId);
       res.redirect('/users/' + req.user[0].UserId);
       // controller.users.show(req, res, model);
     });
