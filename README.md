@@ -9,6 +9,16 @@ Development: [localhost](https://localhost:8080/)
 Source code: [git](https://github.com/skilbjo/dropkey)
 
 
+## Install
+
+Postgres
+
+(ARM architecture, libpq, etc)
+
+env files
+
+self signed certs
+
 ## Project Overview 
 
 A `node.js` web app that handles the business logic of the Dropkey product. 
