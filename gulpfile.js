@@ -82,7 +82,7 @@ gulp.task('watch', function() {
 gulp.task('server', function() {
 	var node;
   if (node) node.kill();
-  node = spawn('nf', ['start','-x','8080','-e','lib/env/dev.env'], {stdio: 'inherit'});
+  node = spawn('nf', ['start','-p','8080','-e','lib/env/dev.env'], {stdio: 'inherit'});
   node.on('close', function (code) {
     if (code === 8) {
       gulp.log('Error detected, waiting for changes...');

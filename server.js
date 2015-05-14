@@ -1,17 +1,39 @@
 var 
   http            = require('http')
+
   , path          = require('path')
   , express       = require('express')
   , app           = express()
   , marked        = require('marked').setOptions({ breaks: true })
   , db            = require('./app/model/index.js')
   , passport      = require('passport')
-  , env           = (process.env.NODE_ENV || 'development');
+  , env           = process.env.NODE_ENV;
 
 // configuration ==============
 // middleware
 require('./lib/config/middleware.js')(app, passport, express);
 app.set('port', process.env.PORT || 8080);
+
+// ssl ================
+if (env === 'development') {
+ var https        = require('https')
+  , fs            = require('fs')
+  , options       = {
+    key: fs.readFileSync('./lib/ssl/server.key')
+    , cert: fs.readFileSync('./lib/ssl/server.crt')
+    , requestCert: false
+    , rejectUnauthroized: false
+  };
+}
+
+var forceSSL = function(req, res, next) {
+  if (req.headers['x-forwarded-proto'] !== 'https') {
+    return res.redirect(['htts://', req.get('Host'), req.ur].join(''));
+  }
+  return next();
+}
+
+if (env !== 'development') {app.use(forceSSL); }
 
 // models =============
 app.set('models', require('./app/model'));
