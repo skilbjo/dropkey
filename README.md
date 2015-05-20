@@ -2,7 +2,7 @@
 
 Raspberry Pi start DB `sudo -u postgres postgres -D /usr/local/pgsql/data >logfile 2>&1 &`
 
-testinga
+testing
 
 Production: [dropkey.io](http://dropkey.io)
 
