@@ -17,8 +17,8 @@ app.set('port', process.env.PORT || 8000);
  var https        = require('https')
   , fs            = require('fs')
   , options       = {
-    key:                  fs.readFileSync('./lib/ssl/server.key')
-    , cert:               fs.readFileSync('./lib/ssl/server.crt')
+    key:                  fs.readFileSync('./lib/ssl2/server.key')
+    , cert:               fs.readFileSync('./lib/ssl2/server.crt')
     , requestCert:        false
     , rejectUnauthorized: false
   };
