@@ -1,5 +1,7 @@
 ## Project
 
+Raspberry Pi start DB `sudo -u postgres postgres -D /usr/local/pgsql/data >logfile 2>&1 &`
+
 Production: [dropkey.io](http://dropkey.io)
 
 Staging: [dropkey-staging](https://dropkey-staging.herokuapp.com/)
