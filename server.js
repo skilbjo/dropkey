@@ -1,17 +1,41 @@
 var 
-  http            = require('http')
-  , path          = require('path')
+  path            = require('path')
   , express       = require('express')
   , app           = express()
   , marked        = require('marked').setOptions({ breaks: true })
   , db            = require('./app/model/index.js')
   , passport      = require('passport')
-  , env           = (process.env.NODE_ENV || 'development');
+  , env           = process.env.NODE_ENV;
 
 // configuration ==============
 // middleware
 require('./lib/config/middleware.js')(app, passport, express);
-app.set('port', process.env.PORT || 8080);
+app.set('port', process.env.PORT || 8000);
+
+// ssl ================
+// if (env === 'development') {
+ var https        = require('https')
+  , fs            = require('fs')
+  , options       = {
+    key:                  fs.readFileSync('./lib/ssl2/server.key')
+    , cert:               fs.readFileSync('./lib/ssl2/server.crt')
+    , requestCert:        false
+    , rejectUnauthorized: false
+  };
+
+
+var forceSSL = function(req, res, next) {
+  console.log(req.secure);
+  if (!req.secure) {
+    console.log(req.secure, ' : ', req.protocol);
+    return res.redirect(['https://', req.get('Host'), req.url].join(''));
+  }
+  return next();
+};
+
+// if (true) { 
+  app.use(forceSSL); 
+// }
 
 // models =============
 app.set('models', require('./app/model'));
@@ -37,7 +61,7 @@ require('./lib/config/passport')(model, passport);
 // launch ===================
 db.sequelize.sync({ force: true }).complete(function(err) {
   if (err) { throw err[0] ; } else { 
-    http.createServer(app).listen(app.get('port'), function(){ 
+    https.createServer(options, app).listen(app.get('port'), function(){ 
       console.log('The magic happens on port ' + app.get('port'));
     });
   }

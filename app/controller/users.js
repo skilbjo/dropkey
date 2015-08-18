@@ -1,3 +1,6 @@
+var fs		= require('fs');
+// http://stackoverflow.com/questions/8310657/how-to-create-a-dynamic-file-link-for-download-in-javascript
+
 exports.index = function(req, res, model) {
 	model.user
 	.findAll()
@@ -6,13 +9,17 @@ exports.index = function(req, res, model) {
 	});
 };
 
-exports.show = function(req, res, model) {
+exports.show = function(req, res, model) {	
+	var md5 	= require('crypto').createHash('md5');
+	console.log('in controller', req.user.UserId);
 	model.user
-	.find(req.user.UserId)
+	.find(req.user.dataValues.UserId)
 	.then(function(err, user) {
 		res.render('users/profile', {
-			name: 	req.user.Name,
-			email: 	req.user.Email
+			name 	: 	req.user.Name,
+			email : 	req.user.Email,
+			hash	: 	md5.update(req.user.Email, req.user.DropboxToke).digest('hex'),
+			userId: 	req.user.UserId
 		});
 	});
 };

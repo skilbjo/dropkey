@@ -3,7 +3,6 @@
 node_modules
 *.sock
 *env*
-*xlsx
 newrelic_agent.log
 bower_components/
 *.csr

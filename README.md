@@ -1,18 +1,33 @@
 ## Project
 
-Production: [xltest.io](https://xltest.io)
-Staging: [xltest-staging](https://xltest-staging.herokuapp.com/)
-Development: [localhost](https://localhost:5000/)
-Source code: [git](https://github.com/skilbjo/xltest)
+Raspberry Pi start DB `sudo -u postgres postgres -D /usr/local/pgsql/data >logfile 2>&1 &`
+
+testing
+a derp
+Production: [dropkey.io](http://dropkey.io)
+
+Staging: [dropkey-staging](https://dropkey-staging.herokuapp.com/)
+
+Development: [localhost](https://localhost:8080/)
+
+Source code: [git](https://github.com/skilbjo/dropkey)
 
 
-## Project Overview
+## Install
 
-A `node.js` web app that sells my Excel test I give candidates when interviewing to be on my team. Often I noticed that candidates would list "mastery of MS Excel" on their resumes, but when tested, they have at best an intermediate skillset. The Excel test would provide a check to anyone who wants to list expert level Excel skills.
+Postgres
+
+(ARM architecture, libpq, etc)
+
+env files
+
+self signed certs
+
+## Project Overview 
+
+A `node.js` web app that handles the business logic of the Dropkey product. 
 
 ## Technical Details
-
-The project here is to test my `node.js` skills.
 
 The stack:
 
@@ -32,13 +47,13 @@ The stack:
 
 ## Installation
 
-	$ git clone https://github.com/skilbjo/xltest.git
+	$ git clone https://github.com/skilbjo/dropkey.git
 
 	$ npm install
 
 	$ postgres -D /usr/local/var/postgres --fork
 
-	$ vim .env
+	$ vim lib/dev.env
 
 Add in super secret configuration variables (API keys, database URL)
 
@@ -49,22 +64,19 @@ FILE_PATH= [[ path to HTTP endpoint where file lives ]]
 GMAIL_PASS=
 GMAIL_USER=
 HEROKU_POSTGRESQL_ORANGE_URL=
-STRIPE_LIVE_PUBLIC=
-STRIPE_LIVE_SECRET=
-STRIPE_TEST_PUBLIC=
-STRIPE_TEST_SECRET=
+DROPBOX_KEY=
+DROPBOX_SECRET=
+DROPBOX_CALLBACK="http://localhost/auth/facebook/callback"
 NODE_ENV=production
 
 ````
 
-Add the Excel test in `/public/assets/xltest.xlsx`
-
 
 ## Let's begin!
 
-Run the server locally with `node-foreman` (loads config vars from `.env`)
+Run the server locally with `gulp` and `node-foreman` (loads config vars from `lib\env\dev.env`)
 
-	nf start -x 8080 -e lib/env/dev.env
+	$ gulp
 
 Or, deploy
 

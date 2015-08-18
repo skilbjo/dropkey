@@ -42,6 +42,8 @@
     , "dbus-native": "0.2.0"
     , "passport": "0.2.1"
     , "passport-facebook": "2.0.0"
+    , "passport-dropbox": "0.1.2"
+    , "passport-dropbox-oauth2": "0.1.6"
   },
   "devDependencies": {
     "nodemon": "1.2.1" 
@@ -54,8 +56,10 @@
     , "jshint-stylish": "0.4.0"
     , "gulp-livereload": "2.1.1"
     , "gulp-watch": "1.2.0"
+    , "browser-sync": "2.6.4"
   },
   "jshintConfig": {
     "laxcomma": true
+    , "indent": 1
   }
 }

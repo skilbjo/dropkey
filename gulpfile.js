@@ -1,5 +1,6 @@
 var gulp 						= require('gulp')
 	, jshint 					= require('gulp-jshint')
+	, browserSync 		= require('browser-sync').create()
 	, stylish 			 	= require('jshint-stylish')
 	, uglify 					= require('gulp-uglify')
 	, minifyCSS 			= require('gulp-minify-css')
@@ -59,6 +60,12 @@ gulp.task('jade', function() {
 	gulp.src(src.jade.all);
 });
 
+// gulp.task('browser-sync', function() {
+// 	browserSync.init({
+// 		server: { baseDir: './' }
+// 	});
+// });
+
 /* 
 make sure to enable LiveReload JS in the browser
 <script src="http://127.0.0.1:35729/livereload.js?ext=Chrome&amp;extver=2.0.9"></script> 
@@ -75,7 +82,7 @@ gulp.task('watch', function() {
 gulp.task('server', function() {
 	var node;
   if (node) node.kill();
-  node = spawn('nf', ['start','-x','8080','-e','lib/env/dev.env'], {stdio: 'inherit'});
+  node = spawn('nf', ['start','-p','8080','-e','lib/env/dev.env'], {stdio: 'inherit'});
   node.on('close', function (code) {
     if (code === 8) {
       gulp.log('Error detected, waiting for changes...');
