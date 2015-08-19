@@ -88,3 +88,4 @@ Or, deploy
 
 	$ heroku open
 
+h
