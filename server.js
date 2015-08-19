@@ -10,7 +10,7 @@ var
 // configuration ==============
 // middleware
 require('./lib/config/middleware.js')(app, passport, express);
-app.set('port', process.env.PORT || 8000);
+app.set('port', process.env.PORT || 8080);
 
 // ssl ================
 // if (env === 'development') {
