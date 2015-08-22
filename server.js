@@ -10,15 +10,15 @@ var
 // configuration ==============
 // middleware
 require('./lib/config/middleware.js')(app, passport, express);
-app.set('port', process.env.PORT || 8000);
+app.set('port', process.env.PORT || 8080);
 
 // ssl ================
 // if (env === 'development') {
  var https        = require('https')
   , fs            = require('fs')
   , options       = {
-    key:                  fs.readFileSync('./lib/ssl2/server.key')
-    , cert:               fs.readFileSync('./lib/ssl2/server.crt')
+    key:                  fs.readFileSync('./lib/ssl_nc/server.key')
+    , cert:               fs.readFileSync('./lib/ssl_nc/server.crt')
     , requestCert:        false
     , rejectUnauthorized: false
   };

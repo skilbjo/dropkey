@@ -1,9 +1,6 @@
 ## Project
 
-Raspberry Pi start DB `sudo -u postgres postgres -D /usr/local/pgsql/data >logfile 2>&1 &`
 
-testing
-a derp
 Production: [dropkey.io](http://dropkey.io)
 
 Staging: [dropkey-staging](https://dropkey-staging.herokuapp.com/)
@@ -12,16 +9,46 @@ Development: [localhost](https://localhost:8080/)
 
 Source code: [git](https://github.com/skilbjo/dropkey)
 
-
 ## Install
-
 Postgres
-
 (ARM architecture, libpq, etc)
 
-env files
+### Environment files
+`lib/env/dev.env`
+''''
+{
+	"database" : {
+		"url": "postgres://user:pass@server:5432/dropkey"
+	},
+	"dropbox" : {
+		"key" : "",
+		"secret": 	"",
+		"token": 		"",
+		"access": 	"",
+		"secret2": 	"",
+		"access2": 	"",
+		"uid": 			""
+	}
+}
+''''
 
-self signed certs
+### SSL
+`lib/ss2/server.crt`
+''''
+-----BEGIN CERTIFICATE-----
+-----END CERTIFICATE-----
+''''
+
+`lib/ss2/server.key`
+''''
+-----BEGIN CERTIFICATE-----
+-----END CERTIFICATE-----
+''''
+
+### Database
+
+Raspberry Pi: `sudo -u postgres postgres -D /usr/local/pgsql/data >logfile 2>&1 &`
+OS X: `postgres -D /usr/local/var/postgres`
 
 ## Project Overview 
 
@@ -88,4 +115,8 @@ Or, deploy
 
 	$ heroku open
 
+<<<<<<< HEAD
 h
+=======
+hi
+>>>>>>> 5efba068c4d93563225f957cb121b28f484f717f
