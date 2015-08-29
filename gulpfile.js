@@ -1,6 +1,6 @@
 var gulp 						= require('gulp')
 	, jshint 					= require('gulp-jshint')
-	, browserSync 		= require('browser-sync').create()
+	//, browserSync 		= require('browser-sync').create()
 	, stylish 			 	= require('jshint-stylish')
 	, uglify 					= require('gulp-uglify')
 	, minifyCSS 			= require('gulp-minify-css')
