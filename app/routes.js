@@ -1,8 +1,8 @@
 module.exports = function(app,
   passport,
 	model,
-	controller,
-  env
+	controller
+  
 	) {
 
 // Static Routes ==================
