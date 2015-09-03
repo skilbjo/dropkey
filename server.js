@@ -25,7 +25,6 @@ app.set('port', process.env.PORT || 8080);
 
 
 var forceSSL = function(req, res, next) {
-  console.log(req.secure);
   if (!req.secure) {
     console.log(req.secure, ' : ', req.protocol);
     return res.redirect(['https://', req.get('Host'), req.url].join(''));
