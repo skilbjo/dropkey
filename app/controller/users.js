@@ -12,7 +12,7 @@ exports.index = function(req, res, model) {
 exports.show = function(req, res, model) {	
 	var md5 	= require('crypto').createHash('md5');
 	model.user
-	.find(req.user.UserId)
+	.findById(req.user.UserId)
 	.then(function(user) {
 		res.render('users/profile', {
 			name 	: 	req.user.Name,
